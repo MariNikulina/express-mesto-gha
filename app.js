@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const process = require('process');
 const { PORT = 3000 } = process.env;
 const bodyParser = require('body-parser');
+const httpConstants = require('http2').constants;
 
 const userRouter = require('./routes/users');
 const cardRouter = require('./routes/cards');
@@ -29,6 +30,9 @@ app.use((req, res, next) => {
 
 app.use('/', userRouter);
 app.use('/', cardRouter);
+app.use('*', (req, res) => {
+  res.status(httpConstants.HTTP_STATUS_NOT_FOUND).send({ message: 'Страница не найдена' });
+})
 
 app.listen(PORT, () => {
     // Если всё работает, консоль покажет, какой порт приложение слушает
