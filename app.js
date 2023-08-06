@@ -1,15 +1,21 @@
 const express = require('express');
 const mongoose = require('mongoose');
-// Слушаем 3000 порт
 const process = require('process');
-const { PORT = 3000 } = process.env;
 const bodyParser = require('body-parser');
 const httpConstants = require('http2').constants;
+require('dotenv').config({ path: './config/.env' });
+
+console.log(process.env);
+
+const {
+  PORT,
+  MONGODB_URL
+} = process.env;
 
 const userRouter = require('./routes/users');
 const cardRouter = require('./routes/cards');
 
-mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
+mongoose.connect(MONGODB_URL, {
     useNewUrlParser: true,
 }).then(() => {
   console.log('connect to bd');

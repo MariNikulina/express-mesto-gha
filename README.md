@@ -18,4 +18,4 @@
 
 **Результат**
 
-Посмотреть проектную работу можно по [ссылке](https://marinikulina.github.io/express-mesto-gha/).
+Посмотреть проектную работу можно по [ссылке](https://github.com/MariNikulina/express-mesto-gha.git).
