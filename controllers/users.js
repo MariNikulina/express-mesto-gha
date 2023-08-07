@@ -5,7 +5,7 @@ const getUsers = (req, res) => {
   console.log(res)
   return UserModel.find()
   .then((users) => res.status(httpConstants.HTTP_STATUS_OK).send(users))
-  .catch((err) => res.status(httpConstants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send({ message: 'Ошибка по умолчанию'}))
+  .catch((err) => res.status(httpConstants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send({ message: 'На сервере произошла ошибка'}))
 };
 
 const getUserById = (req, res) => {
@@ -21,7 +21,7 @@ const getUserById = (req, res) => {
     if (err.name === 'CastError') {
       return res.status(httpConstants.HTTP_STATUS_BAD_REQUEST).send({ message: 'Передан невалидный _id' });
     }
-    res.status(httpConstants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send({ message: 'Ошибка по умолчанию'});
+    res.status(httpConstants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send({ message: 'На сервере произошла ошибка'});
   })
 };
 
@@ -33,7 +33,7 @@ const createUser = (req, res) => {
     if (err.name === 'ValidationError') {
       return res.status(httpConstants.HTTP_STATUS_BAD_REQUEST).send({ message: 'Переданы некорректные данные при создании пользователя' });
     }
-    return res.status(httpConstants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send({ message: 'Ошибка по умолчанию' });
+    return res.status(httpConstants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send({ message: 'На сервере произошла ошибка' });
   });
 };
 
@@ -53,7 +53,7 @@ const updateProfile = (req, res) => {
         if (err.name === 'ValidationError') {
       return res.status(httpConstants.HTTP_STATUS_BAD_REQUEST).send({ message: 'Переданы некорректные данные при обновлении профиля' });
     }
-        res.status(httpConstants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send({ message: 'Ошибка по умолчанию' });
+        res.status(httpConstants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send({ message: 'На сервере произошла ошибка' });
       });
  };
 
@@ -71,7 +71,7 @@ const updateProfile = (req, res) => {
         if (err.name === 'ValidationError') {
       return res.status(httpConstants.HTTP_STATUS_BAD_REQUEST).send({ message: 'Переданы некорректные данные при обновлении аватара' });
     }
-        res.status(httpConstants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send({ message: 'Ошибка по умолчанию' });
+        res.status(httpConstants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send({ message: 'На сервере произошла ошибка' });
       });
  };
 

@@ -4,7 +4,7 @@ const httpConstants = require('http2').constants;
 const getCards = (req, res) => {
   return CardModel.find()
   .then((card) => res.status(httpConstants.HTTP_STATUS_OK).send(card))
-  .catch((err) => res.status(httpConstants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send({ message: 'Ошибка по умолчанию'}))
+  .catch((err) => res.status(httpConstants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send({ message: 'На сервере произошла ошибка'}))
 };
 
 const createCard = (req, res) => {
@@ -16,7 +16,7 @@ const createCard = (req, res) => {
     if (err.name === 'ValidationError') {
       return res.status(httpConstants.HTTP_STATUS_BAD_REQUEST).send({ message: 'Переданы некорректные данные при создании карточки' });
     }
-    return res.status(httpConstants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send({ message: 'Ошибка по умолчанию' });
+    return res.status(httpConstants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send({ message: 'На сервере произошла ошибка' });
   });
 };
 
@@ -33,7 +33,7 @@ const deleteCardById = (req, res) => {
         if (err.name === 'CastError') {
           return res.status(httpConstants.HTTP_STATUS_BAD_REQUEST).send({ message: 'Передан невалидный _id' });
         }
-        res.status(httpConstants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send({ message: 'Ошибка по умолчанию' })
+        res.status(httpConstants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send({ message: 'На сервере произошла ошибка' })
       });
 };
 
@@ -56,7 +56,7 @@ const putLikeCardById = (req, res) => {
         if (err.name === 'CastError') {
           return res.status(httpConstants.HTTP_STATUS_BAD_REQUEST).send({ message: 'Передан невалидный _id' });
         }
-        res.status(httpConstants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send({ message: 'Ошибка по умолчанию' });
+        res.status(httpConstants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send({ message: 'На сервере произошла ошибка' });
       });
 };
 
@@ -79,7 +79,7 @@ const deleteLikeCardById = (req, res) => {
         if (err.name === 'CastError') {
           return res.status(httpConstants.HTTP_STATUS_BAD_REQUEST).send({ message: 'Передан невалидный _id' });
         }
-        res.status(httpConstants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send({ message: 'Ошибка по умолчанию' });
+        res.status(httpConstants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send({ message: 'На сервере произошла ошибка' });
       });
 };
 
