@@ -1,15 +1,15 @@
 const router = require('express').Router();
 
-const { getUsers, getUserById, createUser, updateProfile, updateAvatar } = require('../controllers/users');
+const { getUsers, getUserById, updateProfile, updateAvatar, getUser } = require('../controllers/users');
 
 //возвращает всех пользователей
 router.get('/users', getUsers);
 
+//возвращает информацию о текущем пользователе
+router.get('/users/me', getUser);
+
 //возвращает пользователя по _id
 router.get('/users/:userId', getUserById);
-
-//создаёт пользователя
-router.post('/users', createUser);
 
 //обновляет профиль
 router.patch('/users/me', updateProfile);
