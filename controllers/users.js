@@ -150,7 +150,7 @@ const updateProfile = (req, res, next) => {
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
       console.log(`${email} ${token}`);
       /*return res.status(httpConstants.HTTP_STATUS_OK).send({ token });*/
-      return res.status(httpConstants.HTTP_STATUS_OK).cookie('jwt', token, { maxAge: 3600000, httpOnly: true }).end();
+      return res.status(httpConstants.HTTP_STATUS_OK).cookie('jwt', token, { maxAge: 3600000, httpOnly: true }).send(user);
     });
   })
   .catch((err) => next(new InternalServerError('На сервере произошла ошибка')))
