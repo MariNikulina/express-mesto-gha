@@ -63,8 +63,8 @@ const createUser = (req, res, next) => {
   bcrypt.hash(password, SALT_ROUNDS)
   .then(hash => UserModel.create({ name, about, avatar, email, password: hash }))
   .then(user => {
-    const { _id, email } = user;
-    return res.status(httpConstants.HTTP_STATUS_CREATED).send({ _id, email });
+    const { _id, email, name, about, avatar } = user;
+    return res.status(httpConstants.HTTP_STATUS_CREATED).send({ _id, email, name, about, avatar });
   })
   .catch((err) => {
     console.log(err)
