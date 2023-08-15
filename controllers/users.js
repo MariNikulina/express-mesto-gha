@@ -3,7 +3,7 @@ const httpConstants = require('http2').constants;
 const bcrypt = require('bcryptjs');
 const SALT_ROUNDS = 10;
 const jwt = require('jsonwebtoken');
-const { JWT_SECRET = 'SECRET_KEY' } = process.env;
+const { JWT_SECRET = 'secret' } = process.env;
 
 const ForbiddenError = require('../errors/forbidden-error');
 const NotFoundError = require('../errors/not-found-error');
