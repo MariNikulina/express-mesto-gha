@@ -138,7 +138,8 @@ const updateProfile = (req, res, next) => {
   UserModel.findOne({ email }).select('+password')
   .then((user) => {
     if (!user) {
-      return next(new ForbiddenError('Попытка удалить чужую карточку'));
+      return next(new UnauthorizedError('Передан неверный логин или пароль'));
+      //return next(new ForbiddenError('Попытка удалить чужую карточку'));
       //return res.status(httpConstants.HTTP_STATUS_FORBIDDEN).send({ message: 'Попытка удалить чужую карточку логин'})
     }
     bcrypt.compare(password, user.password, function (err, isValidPassword) {
