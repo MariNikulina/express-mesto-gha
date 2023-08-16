@@ -1,4 +1,5 @@
 const process = require("process");
+const httpConstants = require("http2").constants;
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -16,6 +17,8 @@ const { PORT = 3000, MONGODB_URL = "mongodb://127.0.0.1:27017/mestodb" } =
 
 const userRouter = require("./routes/users");
 const cardRouter = require("./routes/cards");
+
+const NotFoundError = require("./errors/not-found-error");
 
 mongoose
   .connect(MONGODB_URL, {
@@ -63,7 +66,7 @@ app.use(auth);
 app.use("/", userRouter);
 app.use("/", cardRouter);
 app.use("*", (req, res) => {
-  next(err);
+  res.status(httpConstants.HTTP_STATUS_NOT_FOUND).send({ message: 'Страница не найдена' });
 });
 
 // обработчик ошибок celebrate

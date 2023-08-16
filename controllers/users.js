@@ -67,10 +67,10 @@ const createUser = (req, res, next) => {
       UserModel.create({ name, about, avatar, email, password: hash }),
     )
     .then((user) => {
-      const { _id, emailRes, nameRes, aboutRes, avatarRes } = user;
+      const { _id, email, name, about, avatar } = user;
       return res
         .status(httpConstants.HTTP_STATUS_CREATED)
-        .send({ _id, emailRes, nameRes, aboutRes, avatarRes });
+        .send({ _id, email, name, about, avatar });
     })
     .catch((err) => {
       if (err.code === 11000) {
