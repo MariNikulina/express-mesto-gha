@@ -18,9 +18,18 @@ router.get('/users/:userId', celebrate({
  }), getUserById);
 
 //обновляет профиль
-router.patch('/users/me', updateProfile);
+router.patch('/users/me', celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().required().min(2).max(30),
+    about: Joi.string().required().min(2).max(30),
+  }),
+}), updateProfile);
 
  //обновляет аватар
- router.patch('/users/me/avatar', updateAvatar);
+ router.patch('/users/me/avatar', celebrate({
+  body: Joi.object().keys({
+    avatar: Joi.string().pattern(/https?:\/\/[\w\-\._~:\/?#\[\]@!$&'\(\)*\+,;\=]+#?/),
+  }),
+}), updateAvatar);
 
  module.exports = router;
