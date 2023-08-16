@@ -7,6 +7,7 @@ const BadRequestError = require('../errors/bad-request-error');
 const InternalServerError = require('../errors/internal-server-error');
 const ConflictError = require('../errors/conflict-error');
 const UnauthorizedError = require('../errors/unauthorized-error');
+const { ifError } = require('assert');
 
 const getCards = (req, res, next) => {
   return CardModel.find()
@@ -32,11 +33,11 @@ const createCard = (req, res, next) => {
 const deleteCardById = (req, res, next) => {
   const { cardId } = req.params;
   const { _id } = req.user;
-  console.log(req.params)
+  //console.log(req.params)
     return CardModel.findByIdAndRemove( cardId )
       .then((card) => {
-        console.log(`card.owner1: ${card.owner}`)
-          console.log(`_id1: ${_id}`)
+       // console.log(`card.owner1: ${card.owner}`)
+         // console.log(`_id1: ${_id}`)
         if (!card) {
           return next(new NotFoundError('Карточка с указанным _id не найдена'));
           //return res.status(httpConstants.HTTP_STATUS_NOT_FOUND).send({ message: 'Карточка с указанным _id не найдена' });
@@ -52,6 +53,7 @@ const deleteCardById = (req, res, next) => {
         return res.status(httpConstants.HTTP_STATUS_OK).send(card)
       })
       .catch((err) => {
+        console.log(ifError)
         if (err.name === 'CastError') {
           return next(new BadRequestError('Передан невалидный _id'));
           //return res.status(httpConstants.HTTP_STATUS_BAD_REQUEST).send({ message: 'Передан невалидный _id' });
