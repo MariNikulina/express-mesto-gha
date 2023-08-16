@@ -11,6 +11,8 @@ const errorHandler = require('./middlewares/error-handler');
 const { celebrate, Joi } = require('celebrate');
 const { errors } = require('celebrate');
 
+const cookieParser = require('cookie-parser');
+
 const {
   PORT = 3000,
   MONGODB_URL = 'mongodb://127.0.0.1:27017/mestodb'
@@ -26,6 +28,8 @@ mongoose.connect(MONGODB_URL, {
 });
 
 const app = express();
+
+app.use(cookieParser());
 
 app.use(bodyParser.json());
 

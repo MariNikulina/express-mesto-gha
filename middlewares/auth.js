@@ -1,22 +1,23 @@
-const jwt = require('jsonwebtoken');
+const jwtmodule = require('jsonwebtoken');
 const httpConstants = require('http2').constants;
 const { JWT_SECRET = 'secret' } = process.env;
 const UnauthorizedError = require('../errors/unauthorized-error');
 
 module.exports = (req, res, next) => {
-  const { authorization } = req.headers;
-  console.log(`текст: ${authorization}`);
+  console.log(`jwt: ${req.cookies.jwt}`)
+  const { jwt } = req.cookies;
+  console.log(`token: ${jwt}`)
 
-  if (!authorization || !authorization.startsWith('Bearer ')) {
+  if (!jwt) {
     return next(new UnauthorizedError('Передан неверный логин или пароль'));
     //return res.status(httpConstants.HTTP_STATUS_UNAUTHORIZED).send({ message: 'Передан неверный логин или пароль'});
   }
-  const token = authorization.replace('Bearer ', '');
+  //const token = authorization.replace('Bearer ', '');
 
   let payload;
 
   try {
-    payload = jwt.verify(token, JWT_SECRET);
+    payload = jwtmodule.verify(jwt, JWT_SECRET);
 
   } catch (err) {
     return next(new UnauthorizedError('Необходима авторизация'));
