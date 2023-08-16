@@ -33,9 +33,6 @@ const deleteCardById = (req, res, next) => {
   const { cardId } = req.params;
   const { _id } = req.user;
   console.log(req.params)
-  /*if ( _id !== owner ) {
-    return res.status(httpConstants.HTTP_STATUS_FORBIDDEN).send({ message: 'Попытка удалить чужую карточку кард'});
-  }*/
     return CardModel.findByIdAndRemove( cardId )
       .then((card) => {
         console.log(`card.owner1: ${card.owner}`)
