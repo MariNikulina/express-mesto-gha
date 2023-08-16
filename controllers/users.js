@@ -67,7 +67,7 @@ const createUser = (req, res, next) => {
       UserModel.create({ name, about, avatar, email, password: hash }),
     )
     .then((user) => {
-      const { _id, email, name, about, avatar } = user;
+      const { _id } = user;
       return res
         .status(httpConstants.HTTP_STATUS_CREATED)
         .send({ _id, email, name, about, avatar });

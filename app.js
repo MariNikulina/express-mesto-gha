@@ -1,5 +1,4 @@
 const process = require("process");
-const httpConstants = require("http2").constants;
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -65,8 +64,8 @@ app.use(auth);
 
 app.use("/", userRouter);
 app.use("/", cardRouter);
-app.use("*", (req, res) => {
-  res.status(httpConstants.HTTP_STATUS_NOT_FOUND).send({ message: 'Страница не найдена' });
+app.use("*", (req, res, next) => {
+  next(new NotFoundError("Страница не найдена"));
 });
 
 // обработчик ошибок celebrate
