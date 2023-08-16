@@ -9,7 +9,11 @@ router.get('/users', getUsers);
 router.get('/users/me', getUser);
 
 //возвращает пользователя по _id
-router.get('/users/:userId', getUserById);
+router.get('/users/:userId', celebrate({
+  params: Joi.object().keys({
+    userId: Joi.string().alphanum().length(24),
+  }),
+ }), getUserById);
 
 //обновляет профиль
 router.patch('/users/me', updateProfile);
