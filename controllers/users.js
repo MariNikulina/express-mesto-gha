@@ -61,7 +61,7 @@ const createUser = (req, res, next) => {
     );
   }
 
-  bcrypt
+  return bcrypt
     .hash(password, SALT_ROUNDS)
     .then((hash) =>
       UserModel.create({ name, about, avatar, email, password: hash }),
@@ -154,13 +154,13 @@ const login = (req, res, next) => {
     return next(new BadRequestError("Email и password не могут быть пустыми"));
   }
 
-  UserModel.findOne({ email })
+  return UserModel.findOne({ email })
     .select("+password")
     .then((user) => {
       if (!user) {
         return next(new UnauthorizedError("Передан неверный логин или пароль"));
       }
-      bcrypt.compare(password, user.password, (err, isValidPassword) => {
+      return bcrypt.compare(password, user.password, (err, isValidPassword) => {
         if (!isValidPassword) {
           return next(
             new UnauthorizedError("Передан неверный логин или пароль"),
