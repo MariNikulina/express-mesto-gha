@@ -1,6 +1,6 @@
 {
   "extends": [
-    "airbnb-base",
+    "airbnb-base", //comment
     "prettier"
   ],
   "plugins": ["prettier"],
